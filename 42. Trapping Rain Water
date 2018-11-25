@@ -1,0 +1,38 @@
+class Solution
+{
+public:
+    int trap(vector<int>& height)
+    {
+        vector<int>leftMax, rightMax;
+        int sz= height.size();
+        int mx = 0;
+        for(int i=0 ; i< sz; i++)
+        {
+            mx = max(mx, height [i] );
+            leftMax.push_back(mx);
+        }
+
+        mx = 0;
+        for(int i=sz-1; i>=0; i--)
+        {
+            mx = max(mx, height [i] );
+            rightMax.push_back(mx);
+        }
+        reverse(rightMax.begin(), rightMax.end());
+
+
+        int mn;
+        int ans = 0;
+        for(int i=0; i< sz; i++)
+        {
+            mn = min(leftMax[i], rightMax[i]);
+
+            if(mn > height[i])
+            {
+                ans += mn-height[i];
+            }
+        }
+        return ans;
+
+    }
+};
